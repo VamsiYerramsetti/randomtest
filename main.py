@@ -11,7 +11,7 @@ app = FastAPI()
 # ---- Config via env vars (set in Container Apps) ----
 KEYVAULT_URI = os.getenv("KEYVAULT_URI")  # e.g., https://kv-aca-chat.vault.azure.net/
 AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")  # e.g., https://<resource>.openai.azure.com
-AZURE_OPENAI_DEPLOYMENT = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o-mini")  # e.g., gpt-4o-mini
+AZURE_OPENAI_DEPLOYMENT = os.getenv("AZURE_OPENAI_DEPLOYMENT")  # e.g., gpt-4o-mini
 AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION", "2024-10-21")
 
 # ---- Create Azure credentials (enable VS Code + interactive for local dev) ----

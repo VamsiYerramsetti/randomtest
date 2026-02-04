@@ -3,16 +3,15 @@ FROM python:3.11-slim
 WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 
+# System deps (optional minimal)
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# We'll have Streamlit listen on 80 inside the container (simplifies Container Apps port)
-ENV STREAMLIT_SERVER_PORT=80
-EXPOSE 80
+# Container Apps ingress will call our container on this port
+EXPOSE 8000
 
-# avoid dev browser auto-open
-ENV STREAMLIT_BROWSER_GATHERUSAGESTATS=false
-
-CMD ["streamlit", "run", "app.py", "--server.port=80", "--server.address=0.0.0.0"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
